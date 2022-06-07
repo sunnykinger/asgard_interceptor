@@ -29,7 +29,7 @@ import 'package:asgard_http_interceptor/models/models.dart';
 ///}
 ///```
 abstract class InterceptorContract {
-  Future<RequestData> interceptRequest({RequestData data});
+  Future<RequestData> interceptRequest({RequestData? data});
 
-  Future<ResponseData> interceptResponse({ResponseData data});
+  Future<ResponseData> interceptResponse({ResponseData? data});
 }

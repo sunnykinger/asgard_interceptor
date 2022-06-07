@@ -9,16 +9,16 @@ import '../utils.dart';
 class RequestData {
   Method method;
   String baseUrl;
-  Map<String, String> headers;
-  Map<String, String> params;
-  Map<String, String> fields;
+  Map<String, String>? headers;
+  Map<String, String>? params;
+  Map<String, String>? fields;
   dynamic body;
-  List<MultipartFile> files;
-  Encoding encoding;
+  List<MultipartFile>? files;
+  Encoding? encoding;
 
   RequestData({
-    @required this.method,
-    @required this.baseUrl,
+    required this.method,
+    required this.baseUrl,
     this.headers,
     this.params,
     this.fields,
@@ -37,7 +37,7 @@ class RequestData {
     });
     String baseUrl = request.url.origin + request.url.path;
     return RequestData(
-      method: methodFromString(request.method),
+      method: methodFromString(request.method)!,
       encoding: request.encoding,
       body: request.body,
       baseUrl: baseUrl,
@@ -49,7 +49,7 @@ class RequestData {
   factory RequestData.fromMultipartHttpRequest(MultipartRequest request) {
     String baseUrl = request.url.origin + request.url.path;
     return RequestData(
-      method: methodFromString(request.method),
+      method: methodFromString(request.method)!,
       baseUrl: baseUrl,
       files: request.files ?? <MultipartFile>[],
       headers: request.headers ?? <String, String>{},
@@ -60,18 +60,18 @@ class RequestData {
   MultipartRequest toMultipartHttpRequest() {
     var reqUrl = Uri.parse(addParametersToStringUrl(baseUrl, params));
     MultipartRequest request =
-        new MultipartRequest(methodToString(method), reqUrl);
-    if (headers != null) request.headers.addAll(headers);
-    if (fields != null) request.fields.addAll(fields);
-    if (files != null) request.files.addAll(files);
+        new MultipartRequest(methodToString(method)!, reqUrl);
+    if (headers != null) request.headers.addAll(headers!);
+    if (fields != null) request.fields.addAll(fields!);
+    if (files != null) request.files.addAll(files!);
     return request;
   }
 
   Request toHttpRequest() {
     var reqUrl = Uri.parse(addParametersToStringUrl(baseUrl, params));
-    Request request = new Request(methodToString(method), reqUrl);
-    if (headers != null) request.headers.addAll(headers);
-    if (encoding != null) request.encoding = encoding;
+    Request request = new Request(methodToString(method)!, reqUrl);
+    if (headers != null) request.headers.addAll(headers!);
+    if (encoding != null) request.encoding = encoding!;
     if (body != null) {
       if (body is String) {
         request.body = body;

@@ -7,7 +7,7 @@ enum Method {
   DELETE,
 }
 
-Method methodFromString(String method) {
+Method? methodFromString(String method) {
   switch (method) {
     case "HEAD":
       return Method.HEAD;
@@ -25,7 +25,7 @@ Method methodFromString(String method) {
   return null;
 }
 
-String methodToString(Method method) {
+String? methodToString(Method? method) {
   switch (method) {
     case Method.HEAD:
       return "HEAD";
